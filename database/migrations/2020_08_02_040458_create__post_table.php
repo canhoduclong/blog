@@ -18,7 +18,7 @@ class CreatePostTable extends Migration
             $table->tinyInteger('cid')->nullable();
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
-            $table->mediumText('desription')->nullable();
+            $table->mediumText('description')->nullable();
             $table->longtext('content')->nullable();
             $table->mediumText('keyword')->nullable();
             $table->date('created')->nullable();

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use DateTime,File,Input,DB; 
+use App\video;
 class VideoController extends Controller
 {
     /**
@@ -13,7 +14,8 @@ class VideoController extends Controller
      */
     public function index()
     {
-        //
+        $video = video::paginate(10); 
+        return view('backend.video.list', ['data'=> $video] );
     }
 
     /**
@@ -23,7 +25,7 @@ class VideoController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.video.add' );
     }
 
     /**
@@ -34,7 +36,13 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $video = new video();
+        $video->title = $request->title;;
+        $video->keyword = $request->keyword;
+        $video->description = $request->description;
+        $video->content = $request->content;
+        $video->save();
+        return redirect('admin/video');
     }
 
     /**
@@ -56,7 +64,8 @@ class VideoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $video = video::find($id);  
+        return view('backend.video.edit',['data'=>$video]);
     }
 
     /**
@@ -68,7 +77,13 @@ class VideoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $video = video::find($id);
+        $video->title = $request->title;;
+        $video->keyword = $request->keyword;
+        $video->description = $request->description;
+        $video->content = $request->content;
+        $video->save();
+        return redirect('admin/video');
     }
 
     /**
@@ -79,6 +94,10 @@ class VideoController extends Controller
      */
     public function destroy($id)
     {
-        //
+       
+        $video = video::find($id);
+        $video->delete();
+        print_r($video);
+        return redirect()->route('listvideo')->with(['message'=> 'Successfully deleted!!']);
     }
 }

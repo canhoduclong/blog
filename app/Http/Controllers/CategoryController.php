@@ -96,8 +96,7 @@ class CategoryController extends Controller
     {
        
         $category = Category::find($id);
-        $category->delete();
-        print_r($category);
+        $category->delete(); 
         return redirect()->route('listcategory')->with(['message'=> 'Successfully deleted!!']);
     }
 }
